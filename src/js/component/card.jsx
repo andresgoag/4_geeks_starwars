@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+// Context
+import { myContext } from "../store/appContext";
+
 export const Card = props => {
 	const data = props.item;
 	const keysArray = Object.keys(data);
@@ -14,6 +17,8 @@ export const Card = props => {
 	const prettify = key => {
 		return key.replace("_", " ");
 	};
+
+	const { actions } = React.useContext(myContext);
 
 	return (
 		<div className="card text-white bg-dark flex-shrink-0 mx-2">
@@ -33,7 +38,7 @@ export const Card = props => {
 					<button className="btn btn-outline-light">Learn more</button>
 				</Link>
 
-				<button className="btn btn-outline-success">
+				<button className="btn btn-outline-success" onClick={() => actions.addFavorites(data.name)}>
 					<i className="far fa-heart" />
 				</button>
 			</div>

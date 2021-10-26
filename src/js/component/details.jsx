@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Characteristic } from "./characteristic.jsx";
-import { URL_API } from "../index.js";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export const Details = props => {
-	let { type, id } = useParams();
+	const URL_API = "https://swapi.dev/api";
+
+	const { type, id } = useParams();
 
 	const [item, setItem] = React.useState({});
 
@@ -15,7 +16,9 @@ export const Details = props => {
 				if (response.ok) return response.json();
 				throw new Error("Error fetching from API");
 			})
-			.then(data => setItem(data))
+			.then(data => {
+				setItem(data);
+			})
 			.catch(error => console.error(error));
 	}, []);
 
@@ -63,6 +66,9 @@ export const Details = props => {
 								</div>
 							</div>
 						</div>
+						<Link to="/">
+							<button className="mt-3 btn btn-success">Go to home</button>
+						</Link>
 					</div>
 				</div>
 			</div>
@@ -71,5 +77,5 @@ export const Details = props => {
 };
 
 Details.propTypes = {
-	url: PropTypes.string
+	match: PropTypes.object
 };
